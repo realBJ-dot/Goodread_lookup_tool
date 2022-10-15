@@ -1,0 +1,107 @@
+<p>Please provide the book information below. If left empty, it is null by default</p>
+<p>Click "Add" if you want to add the info you entered, "clear" if you want to clear the add history.</p>
+<link rel="stylesheet" href="style.css"> 
+<link rel="functionality" href="index.js"> 
+<script src="https://d3js.org/d3.v7.min.js"></script>
+<form>
+  <p>
+    <label for="book title" required>Book Title:</label>
+    <input type="text" id="bookTitle"> 
+  </p>
+  <p>
+    <label for="book id">Book ID:</label>
+    <input type = "int" id="bookId">
+  </p>
+  <p>
+    <label for="ISBN">ISBN:</label>
+    <input type="int" id="ISBN">
+  </p>
+  <p>
+    <label for="author url">Author URL:</label>
+    <input type="char" id="authorUrl">
+  </p>
+  <p>
+    <label for="author">Author:</label>
+    <input type="string" id="author">
+  </p>
+  <p>
+    <label for="rating">Rating:</label>
+    <input type="float" id="rating">
+  </p>
+  <p>
+    <label for="rating count">Rating Count:</label>
+    <input type="int" id="ratingCount">
+  </p>
+  <p>
+    <label for="review_count">Review Count:</label>
+    <input type="int" id="reviewCount">
+  </p>
+  <p>
+    <label for="imageUrl">Image URL:</label>
+    <input type="string" id="imageUrl">
+  </p>
+  <p>
+    <label for="similar books">Similar Books:</label>
+    <input type="similar books" id="similarBooks">
+  </p>
+  <button id="button1">Add</button>
+  <button id="button2">Clear</button>
+  <button id="button3">Display</button>
+  
+</form>
+<script>
+  let book = [];
+  const addBook = (ev) => {
+    ev.preventDefault();
+    var title = document.getElementById('bookTitle').value;
+    var id = document.getElementById('bookId').value;
+    var isbn = document.getElementById('ISBN').value;
+    var authorUrl = document.getElementById('authorUrl').value;
+    var author = document.getElementById('author').value;
+    var rating = document.getElementById('rating').value;
+    var ratingCount = document.getElementById('ratingCount').value;
+    var reviewCount = document.getElementById('reviewCount').value;
+    var imageUrl = document.getElementById('imageUrl').value;
+    var similarBooks = document.getElementById('similarBooks').value;
+    
+    let bookInfo = {
+      title : title,
+      id : id,
+      isbn : isbn,
+      authorUrl : authorUrl,
+      author : author,
+      rating : rating,
+      ratingCount : ratingCount,
+      reviewCount : reviewCount,
+      imageUrl : imageUrl,
+      similarBooks : similarBooks
+    };
+    book.push(bookInfo);
+    document.forms[0].reset();
+    console.warn('added', {book});
+    window.alert('You have successfully added a book!')
+  }
+  const clear = (ev) => {
+    ev.preventDefault();
+    book = []
+    window.alert('You have successfully cleared the book list!')
+  }
+  const gfgRun = (ev) => {
+    ev.preventDefault();
+    var json = JSON.stringify(book, undefined, 4);
+    output(json)
+  }
+  function output(inp) {
+    document.body.appendChild(document.createElement('pre')).innerHTML = inp;
+  }
+document.addEventListener('DOMContentLoaded', ()=> {
+  document.getElementById('button1').addEventListener('click', addBook)
+});
+
+document.addEventListener('DOMContentLoaded', ()=> {
+  document.getElementById('button2').addEventListener('click', clear)
+});
+document.addEventListener('DOMContentLoaded', ()=> {
+  document.getElementById('button3').addEventListener('click', gfgRun)
+});
+</script>

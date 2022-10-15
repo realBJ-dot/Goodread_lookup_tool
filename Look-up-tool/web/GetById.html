@@ -1,0 +1,130 @@
+<link rel="stylesheet" href="style.css"> 
+<form>
+<p>
+    <label for="author_id" required>Author ID:</label>
+    <input type="int" id="author_id"> 
+    <button id="button1">Get Author</button>
+    <button id="button3">Delete Author</button>
+</p>
+<p>
+    <label for="book_id" required>Boolk ID:</label>
+    <input type="int" id="book_id">  
+    <button id="button2">Get Book</button>
+    <button id="button4">Delete Book</button>
+</p>
+  <div id="json_data"></div>
+</form>
+
+<script>
+    function constructTable(json, selector) {
+             
+        // Getting the all column names
+        var cols = Headers(json, selector); 
+
+        // Traversing the JSON data
+        for (var i = 0; i < json.length; i++) {
+            var row = $('<tr/>');  
+            for (var colIndex = 0; colIndex < cols.length; colIndex++)
+            {
+                var val = json[i][cols[colIndex]];
+                
+                // If there is any key, which is matching
+                // with the column name
+                if (val === null) val = ''; 
+                    row.append($('<td/>').html(val));
+            }
+            
+            // Adding each row to the table
+            $(selector).append(row);
+        }
+    }  
+    function Headers(json, selector) {
+        var columns = [];
+        var header = $('<tr/>');
+        
+        for (var i = 0; i < json.length; i++) {
+            var row = json[i];
+            
+            for (var k in row) {
+                if ($.inArray(k, columns) === -1) {
+                    columns.push(k);
+                    
+                    // Creating the header
+                    header.append($('<th/>').html(k));
+                }
+            }
+        }
+        // Appending the header to the table
+        $(selector).append(header);
+        return columns;
+    }      
+    function checkValidity(json) {
+        if (json.includes('error')) {
+            alert('there is no with this id in db')
+            return;
+        }
+        alert('you have successfully deleted it!')
+    }
+    //this two are for getting and deleting by id for authors
+    const getAuthorId = (ev) => {
+        ev.preventDefault();
+        var id = document.getElementById('author_id').value;
+        fetch(`/author?id=${id}`)
+        .then(response => response.json())
+        .then(json => {  
+            console.log(json)
+            var elem = document.getElementById('json_data');
+            elem.innerHTML = json;
+        })  
+    }
+    const deleteAuthorId = (ev) => {
+        ev.preventDefault();
+        var id = document.getElementById('author_id').value;
+        fetch(`/author?id=${id}`, { method: "DELETE" })
+        .then(response => response.json())
+        .then(json => {
+            console.log(json)
+            checkValidity(json)
+        })
+    }
+    // these two are for getting and deleting by id for books
+    const getBookId = (ev) => {
+        ev.preventDefault();
+        var id = document.getElementById('book_id').value;
+        fetch(`/book?id=${id}`)
+        .then(response => response.json())
+        .then(json => {  
+            console.log(json);
+            var elem = document.getElementById('json_data');
+            elem.innerHTML = json;  
+        })
+    }
+    const deleteBoookId = (ev) => {
+        ev.preventDefault();
+        var id = document.getElementById('book_id').value;
+        fetch(`/book?id=${id}`, { method: "DELETE"})
+        .then(response => response.json())
+        .then(json => {
+            console.log(json);
+            checkValidity(json);
+        })
+        
+    }
+    /*
+    below are for clicking buttons
+     */
+    
+    document.addEventListener('DOMContentLoaded', ()=> {
+    document.getElementById('button1').addEventListener('click', getAuthorId)
+    });
+    document.addEventListener('DOMContentLoaded', ()=> {
+    document.getElementById('button2').addEventListener('click', getBookId)
+    });
+    document.addEventListener('DOMContentLoaded', ()=> {
+    document.getElementById('button3').addEventListener('click', deleteAuthorId)
+    });
+    document.addEventListener('DOMContentLoaded', ()=> {
+    document.getElementById('button4').addEventListener('click', deleteBoookId)
+    });
+
+</script>

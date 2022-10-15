@@ -1,0 +1,94 @@
+<p>Please provide the authors information below. If left empty, it is null by default</p>
+<p>Click "Add" if you want to add the info you entered, "clear" if you want to clear the add history.</p>
+<link rel="stylesheet" href="style.css"> 
+<link rel="functionality" href="index.js"> 
+
+<style> 
+    
+    form { 
+      border: 2px solid;
+      padding: 20px; 
+      width: 300px;
+      resize: both;
+      overflow: auto;
+    }
+</style>
+<form>
+  <p>
+    <label for="authorName" required>Author Name:</label>
+    <input type="text" id="authorName"> 
+  </p>
+  <p>
+    <label for="authorUrl">Author Url:</label>
+    <input type = "int" id="authorUrl">
+  </p>
+  <p>
+    <label for="authorId">Author ID:</label>
+    <input type="int" id="authorId">
+  </p>
+  <p>
+    <label for="rating">Rating:</label>
+    <input type="float" id="rating">
+  </p>
+  <p>
+    <label for="rating count">Rating Count:</label>
+    <input type="int" id="ratingCount">
+  </p>
+  <p>
+    <label for="reviewCount">Review Count:</label>
+    <input type="int" id="reviewCount">
+  </p>
+  <button id="button1">Add</button>
+  <button id="button2">Clear</button>
+  <button id="button3">Display</button>
+  
+</form>
+<script>
+  let authors = [];
+  const addAuthor = (ev) => {
+    ev.preventDefault();
+    var name = document.getElementById('authorName').value;
+    var id = document.getElementById('authorUrl').value;
+    var authorId = document.getElementById('authorId').value;
+    var authorUrl = document.getElementById('authorUrl').value;
+    var rating = document.getElementById('rating').value;
+    var ratingCount = document.getElementById('ratingCount').value;
+    var reviewCount = document.getElementById('reviewCount').value;
+    let authorInfo = {
+      name : name,
+      id : id,
+      authorUrl : authorUrl,
+      rating : rating,
+      ratingCount : ratingCount,
+      reviewCount : reviewCount,
+    };
+    authors.push(authorInfo);
+    document.forms[0].reset();
+    console.warn('added', {authors});
+    window.alert('You have successfully added a authors!')
+  }
+  const clear = (ev) => {
+    ev.preventDefault();
+    authors = []
+    window.alert('You have successfully cleared the authors list!')
+  }
+  const gfgRun = (ev) => {
+    ev.preventDefault();
+    var json = JSON.stringify(authors, undefined, 4);
+    output(json)
+    
+  }
+  function output(inp) {
+    document.body.appendChild(document.createElement('pre')).innerHTML = inp;
+  }
+document.addEventListener('DOMContentLoaded', ()=> {
+  document.getElementById('button1').addEventListener('click', addAuthor)
+});
+
+document.addEventListener('DOMContentLoaded', ()=> {
+  document.getElementById('button2').addEventListener('click', clear)
+});
+document.addEventListener('DOMContentLoaded', ()=> {
+  document.getElementById('button3').addEventListener('click', gfgRun)
+});
+</script>

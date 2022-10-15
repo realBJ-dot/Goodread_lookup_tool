@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<meta charset='utf-8'>
+<html>
+    <head>
+        <script src="https://d3js.org/d3.v4.min.js" charset="utf-8"></script>
+       
+        <link rel="stylesheet" href="style.css"> 
+        <script src=app.js defer></script>
+        <body>
+            <div id="chart-container"></div>
+          </body>
+        <script>
+
+            const visualise = (ev) => {
+            // the element to be filled in the HTML file
+            ev.preventDefault();
+            const chartContainer = d3.select('#chart-container');
+
+            // overall SVG dimensions
+            const svgWidth = 400;
+            const svgHeight = 300;
+
+            // margins also accommodate dimensions of axes labels
+            const margin = {top: 10, left: 40, bottom: 90, right: 10};
+
+            // chart dimensions = overall dimensions minus margins
+            const w = svgWidth - margin.left - margin.right;
+            const h = svgHeight - margin.top - margin.bottom;
+
+            // create the SVG
+            const svg = chartContainer
+                .append('svg')
+                .attr('width', svgWidth)
+                .attr('height', svgHeight);
+
+            // create an SVG group to hold the chart contents
+            const chart = svg.append('g')
+                .attr('id', 'chart')
+                .attr('transform', 'scale(1, 1) translate(' + margin.left + ',' + margin.top + ')')
+                .attr('width', w)
+                .attr('height', h);
+            // load data from separate JSON file
+            d3.json('data.json', function(error, data) {
+                // debug
+                console.log(data);
+
+                // get the highest value for "days" in all data objects
+                const maxDays = d3.max(data, function(d) {
+                    return d.ratings;
+                });
+
+                // create an array with all month names
+                const months = data.map(function(d) {
+                    return d.id;
+                });
+
+                // match domain (input values) to range (output units)
+                const xScale = d3.scaleBand()
+                        .rangeRound([0, w])
+                        .padding(0.2)
+                        .domain(months);
+
+                const yScale = d3.scaleLinear()
+                    .rangeRound([h, 0])
+                    .domain([0, maxDays]);
+
+                // create axes for the chart
+                // the axes are appended to the SVG, not the chart group
+                const xAxis = svg.append('g')
+                    .classed('scale', true)
+                    .attr('id', 'x-axis')
+                    .attr('transform', 'translate(' + margin.left + ',' + (svgHeight - margin.bottom) + ')')
+                    .call(d3.axisBottom(xScale))
+                    .selectAll('text')
+                    .classed('labels', true)
+                    .style('text-anchor', 'end')
+                    .attr('transform', 'rotate(-50)')
+                    .attr('dx', '-.8em')
+                    .attr('dy', '.2em');
+
+                const yAxis = svg.append('g')
+                    .classed('scale', true)
+                    .attr('id', 'y-axis')
+                    .attr('transform', 'translate(' + margin.left + ',' + margin.top +')')
+                    // show ticks for only these two values on the Y axis
+                    .call(d3.axisLeft(yScale).ticks(3).tickValues([28, 31]))
+                    .selectAll('text')
+                    .classed('labels', true);
+
+                // add a bar for every month
+                // first select all existing bars (there are none)
+                const bars = d3.select('#chart').selectAll('.bar');
+
+                // ... then add new bars
+                bars.data(data)
+                    .enter().append('rect')
+                    .classed('bar', true)
+                    .attr('height', function(d) {
+                        // draw from bottom upwards: subtract height value from chart height
+                        return h - yScale(d.ratings);
+                    })
+                    // use the width specified via d3.scaleBand()
+                    .attr('width', xScale.bandwidth())
+                    .attr('x', function(d) {
+                        return xScale(d.id);
+                    })
+                    .attr('y', function(d) {
+                        return yScale(d.ratings);
+                    });
+
+                bars.exit().remove();
+            });
+    
+            }
+        </script>
+        <script>
+            /*
+            const convertToTable = (ev) => {
+                
+                ev.preventDefault();
+                
+                d3.json('data.json', function (error, data) {
+                    
+                function tabulate(data, columns) {
+                    //d3.select('table').remove()
+                    alert('what is the problem'); 
+                    
+                    var table = d3.select('body').append('table')
+                    var thead = table.append('thead')
+                    var	tbody = table.append('tbody');
+
+                    // append the header row
+                    thead.append('tr')
+                    .selectAll('th')
+                    .data(columns).enter()
+                    .append('th')
+                        .text(function (column) { return column; });
+                    // create a row for each object in the data
+                    var rows = tbody.selectAll('tr')
+                    .data(data)
+                    .enter()
+                    .append('tr');
+
+                    // create a cell in each row for each column
+                    var cells = rows.selectAll('td')
+                    .data(function (row) {
+                        return columns.map(function (column) {
+                        return {column: column, value: row[column]};
+                        });
+                    })
+                    .enter()
+                    .append('td')
+                        .text(function (d) { return d.value; });
+                    return table;
+                }
+                tabulate(data, ['date', 'close']);
+            });
+        }*/
+        const find = (ev) => {
+            var id = document.getElementById("Kth").value
+        }
+        document.addEventListener('DOMContentLoaded', ()=> {
+        document.getElementById('button1').addEventListener('click', visualise)
+        });
+        </script>
+    </head>
+    <p>Get the top kth :</p>
+    <form>
+        <p>
+            <label for="theKth" required>K:</label>
+            <input type="int" id="Kth"> 
+            <button id="button1">Go</button>
+        </p>
+        
+    </form>
+    
+</html>

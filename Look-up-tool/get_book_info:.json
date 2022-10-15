@@ -1,0 +1,49 @@
+[
+  {
+    "_id": {
+      "$oid": "615247ae3fb8a5a27e49737e"
+    },
+    "title": "\n      Vengeance\n",
+    "book id": "57006919",
+    "ISBN": "",
+    "author url": "https://www.goodreads.com/author/show/17100491.Courtney_Konstantin",
+    "author": "Courtney Konstantin",
+    "rating": "\n  4.62\n",
+    "rating count": "116",
+    "review count": "33",
+    "image url": "https://i.gr-assets.com/images/S/compressed.photo.goodreads.com/books/1612846974l/57006919._SX318_.jpg",
+    "similar books": [
+      "https://goodreads.com/book/show/57006919-vengeance",
+      "https://goodreads.com/book/show/23466036-all-the-stars-in-the-sky",
+      "https://goodreads.com/book/show/52622380-world-departed",
+      "https://goodreads.com/book/show/42073408-instauration",
+      "https://goodreads.com/book/show/22080473-and-after",
+      "https://goodreads.com/book/show/35709033-peripeteia",
+      "https://goodreads.com/book/show/30367410-mordacious",
+      "https://goodreads.com/book/show/57746318-nurse-alissa-vs-the-zombies-vii",
+      "https://goodreads.com/book/show/18586621-until-the-end-of-the-world",
+      "https://goodreads.com/book/show/56509184-edge-of-valor",
+      "https://goodreads.com/book/show/20911445-so-long-lollipops",
+      "https://goodreads.com/book/show/35887251-pieces-of-her",
+      "https://goodreads.com/book/show/53841104-escape",
+      "https://goodreads.com/book/show/54644030-the-good-the-bad-and-the-undead",
+      "https://goodreads.com/book/show/56887309-safe-haven---neverland-part-1",
+      "https://goodreads.com/book/show/59010242-beckoned",
+      "https://goodreads.com/book/show/56780373-the-liminal-space",
+      "https://goodreads.com/book/show/56486101-rebecca-remain",
+      "https://goodreads.com/book/show/56870702-learning-to-live",
+      "https://goodreads.com/book/show/55212160-the-tears-of-boabdil",
+      "https://goodreads.com/book/show/55662309-killer-blonde",
+      "https://goodreads.com/book/show/56882837-rescue",
+      "https://goodreads.com/book/show/56038486-desperate-mission",
+      "https://goodreads.com/book/show/57111469-a-hole",
+      "https://goodreads.com/book/show/54181075-black-dog-rising",
+      "https://goodreads.com/book/show/28384096-jordan-s-shadow",
+      "https://goodreads.com/book/show/57214444-loyalty-lies",
+      "https://goodreads.com/book/show/57235933-red-s-tangled-tale",
+      "https://goodreads.com/book/show/56881297-kissing-the-kavalier",
+      "https://goodreads.com/book/show/57331482-wolf-s-beautiful-beast",
+      "https://goodreads.com/book/show/56485278-hell-in-a-handbasket"
+    ]
+  }
+]
